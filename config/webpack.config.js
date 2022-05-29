@@ -362,7 +362,14 @@ module.exports = function (webpackEnv) {
                   maxSize: imageInlineSizeLimit,
                 },
               },
-            },
+	    },
+	    {
+	      test: /\.(glsl|frag|vert)$/,
+	      use: [
+		require.resolve('raw-loader'),
+		require.resolve('glslify-loader'),
+	      ]
+	    },
             // "url" loader works like "file" loader except that it embeds assets
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
