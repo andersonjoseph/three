@@ -1,13 +1,8 @@
-import {Scene, PerspectiveCamera, WebGLRenderer, Clock, Mesh, Points} from 'three'
+import {Scene, PerspectiveCamera, WebGLRenderer, Clock, Object3D} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-export interface ThreeMesh {
-  mesh: Mesh,
-  render?: (app: ThreeApp) => void
-}
-
-export interface ThreePoints {
-  points: Points,
+export interface ThreeObject {
+  object: Object3D,
   render?: (app: ThreeApp) => void
 }
 
@@ -67,11 +62,8 @@ export class ThreeApp {
 
   }
 
-  addObject(object: ThreePoints | ThreeMesh) {
-    if('mesh' in object)
-      this.scene.add(object.mesh);
-    else 
-      this.scene.add(object.points);
+  addObject(object: ThreeObject) {
+      this.scene.add(object.object);
 
     if(object.render)
       this.renderCallbacks.push(object.render.bind(object));
